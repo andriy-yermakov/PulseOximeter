@@ -22,7 +22,7 @@
  8000040  8000040       f0     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.vector_table.interrupts)
  8000040  8000040       f0     1                 __INTERRUPTS
  8000130  8000130        0     1 PROVIDE ( _stext = ADDR ( .vector_table ) + SIZEOF ( .vector_table ) )
- 8000130  8000130     2d48     4 .text
+ 8000130  8000130     2d44     4 .text
  8000130  8000130       7c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.Reset)
  8000130  8000130        0     1                 $t.36
  8000131  8000131       7c     1                 Reset
@@ -67,138 +67,138 @@
  8001820  8001820       26     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.main)
  8001820  8001820        0     1                 $t.18
  8001821  8001821       26     1                 main
- 8001846  8001846      46e     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN5rtapp3app8rtic_ext4main21__rtic_init_resources17hf2b389727000acd1E)
+ 8001846  8001846      468     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN5rtapp3app8rtic_ext4main21__rtic_init_resources17hf2b389727000acd1E)
  8001846  8001846        0     1                 $t.19
- 8001847  8001847      46e     1                 rtapp::app::rtic_ext::main::__rtic_init_resources::hf2b389727000acd1
- 8001cb4  8001cb4        4     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3ops8function6FnOnce9call_once17h4e576c8f9f8ad893E)
- 8001cb4  8001cb4        0     1                 $t.20
- 8001cb5  8001cb5        4     1                 core::ops::function::FnOnce::call_once::h4e576c8f9f8ad893
- 8001cb8  8001cb8       48     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking18panic_bounds_check17h405cc87dbcedf899E)
- 8001cb8  8001cb8        0     1                 $t.21
- 8001cb9  8001cb9       48     1                 core::panicking::panic_bounds_check::h405cc87dbcedf899
- 8001d00  8001d00      282     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt3num3imp52_$LT$impl$u20$core..fmt..Display$u20$for$u20$u32$GT$3fmt17hce792a08db9a686eE)
- 8001d00  8001d00        0     1                 $t.22
- 8001d01  8001d01      282     1                 core::fmt::num::imp::_$LT$impl$u20$core..fmt..Display$u20$for$u20$u32$GT$::fmt::hce792a08db9a686e
- 8001f82  8001f82       26     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking9panic_fmt17haa3fa7f8a12e8582E)
- 8001f82  8001f82        0     1                 $t.23
- 8001f83  8001f83       26     1                 core::panicking::panic_fmt::haa3fa7f8a12e8582
- 8001fa8  8001fa8        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3ptr102drop_in_place$LT$$RF$core..iter..adapters..copied..Copied$LT$core..slice..iter..Iter$LT$u8$GT$$GT$$GT$17h7a94946140c2e94bE)
- 8001fa8  8001fa8        0     1                 $t.24
- 8001fa9  8001fa9        2     1                 core::ptr::drop_in_place$LT$$RF$core..iter..adapters..copied..Copied$LT$core..slice..iter..Iter$LT$u8$GT$$GT$$GT$::h7a94946140c2e94b
- 8001faa  8001faa       12     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17hab074aaa094b0467E)
- 8001faa  8001faa        0     1                 $t.25
- 8001fab  8001fab       12     1                 _$LT$T$u20$as$u20$core..any..Any$GT$::type_id::hab074aaa094b0467
- 8001fbc  8001fbc       32     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt9Formatter12pad_integral12write_prefix17hffa86199801e556aE)
- 8001fbc  8001fbc        0     1                 $t.26
- 8001fbd  8001fbd       32     1                 core::fmt::Formatter::pad_integral::write_prefix::hffa86199801e556a
- 8001fee  8001fee       4c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core5slice5index24slice_end_index_len_fail17h4743b677e768a08fE)
- 8001fee  8001fee        0     1                 $t.27
- 8001fef  8001fef       4c     1                 core::slice::index::slice_end_index_len_fail::h4743b677e768a08f
- 800203a  800203a      668     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt9Formatter3pad17hb1396c7b5e6a5562E)
- 800203a  800203a        0     1                 $t.28
- 800203b  800203b      668     1                 core::fmt::Formatter::pad::hb1396c7b5e6a5562
- 80026a2  80026a2       30     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking5panic17hed84b1200ea4b20fE)
- 80026a2  80026a2        0     1                 $t.29
- 80026a3  80026a3       30     1                 core::panicking::panic::hed84b1200ea4b20f
- 80026d2  80026d2        c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h19332948be8e93f2E)
- 80026d2  80026d2        0     1                 $t.30
- 80026d3  80026d3        c     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h19332948be8e93f2
- 80026de  80026de        a     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he8107e1107f94252E)
- 80026de  80026de        0     1                 $t.31
- 80026df  80026df        a     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$::fmt::he8107e1107f94252
- 80026e8  80026e8      188     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt5write17hac9753792f988019E)
- 80026e8  80026e8        0     1                 $t.32
- 80026e9  80026e9      188     1                 core::fmt::write::hac9753792f988019
- 8002870  8002870       2c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h03e8891721b4e5b7E)
- 8002870  8002870        0     1                 $t.33
- 8002871  8002871       2c     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h03e8891721b4e5b7
- 800289c  800289c        e     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h8899a5922729cb5aE)
- 800289c  800289c        0     1                 $t.34
- 800289d  800289d        e     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h8899a5922729cb5a
- 80028aa  80028aa       4a     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core6result13unwrap_failed17h7a4c04255328a40eE)
- 80028aa  80028aa        0     1                 $t.35
- 80028ab  80028ab       4a     1                 core::result::unwrap_failed::h7a4c04255328a40e
- 80028f4  80028f4        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.DefaultHandler_)
- 80028f4  80028f4        0     1                 $t.38
- 80028f5  80028f5        2     1                 DefaultHandler_
- 80028f6  80028f6        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.DefaultPreInit)
- 80028f6  80028f6        0     1                 $t.39
- 80028f7  80028f7        2     1                 DefaultPreInit
- 80028f8  80028f8       8c     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN68_$LT$display_interface..DisplayError$u20$as$u20$core..fmt..Debug$GT$3fmt17h75580c757e34cb51E)
- 80028f8  80028f8        0     1                 $t.42
- 80028f9  80028f9       8c     1                 _$LT$display_interface..DisplayError$u20$as$u20$core..fmt..Debug$GT$::fmt::h75580c757e34cb51
- 80028fe  80028fe        0     1                 $d.43
- 8002906  8002906        0     1                 $t.44
- 8002984  8002984       70     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.rust_begin_unwind)
- 8002984  8002984        0     1                 $t.45
- 8002985  8002985       70     1                 rust_begin_unwind
- 80029f4  80029f4       f6     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hbcd20cb194511d23E)
- 80029f4  80029f4        0     1                 $t.46
- 80029f5  80029f5       f6     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::hbcd20cb194511d23
- 8002aea  8002aea       60     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h60b693436fc2d9caE)
- 8002aea  8002aea        0     1                 $t.47
- 8002aeb  8002aeb       60     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_str::h60b693436fc2d9ca
- 8002b4a  8002b4a       d4     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h9528f24e2ac8e40fE)
- 8002b4a  8002b4a        0     1                 $t.48
- 8002b4b  8002b4b       d4     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_char::h9528f24e2ac8e40f
- 8002c1e  8002c1e       30     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17hfecb094352dd1f99E)
- 8002c1e  8002c1e        0     1                 $t.49
- 8002c1f  8002c1f       30     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_fmt::hfecb094352dd1f99
- 8002c4e  8002c4e        4     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m_semihosting-65d88b78e51e66fb.rlib(cortex-m-semihosting.o):(.text.__c_m_sh_syscall)
- 8002c4e  8002c4e        0     1                 $t
- 8002c4f  8002c4f        0     1                 __c_m_sh_syscall
- 8002c52  8002c52        4     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__bkpt)
- 8002c52  8002c52        0     1                 $t.0
- 8002c53  8002c53        4     1                 __bkpt
- 8002c56  8002c56        4     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__cpsid)
- 8002c56  8002c56        0     1                 $t.3
- 8002c57  8002c57        4     1                 __cpsid
- 8002c5a  8002c5a        4     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__cpsie)
- 8002c5a  8002c5a        0     1                 $t.4
- 8002c5b  8002c5b        4     1                 __cpsie
- 8002c5e  8002c5e        4     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__nop)
- 8002c5e  8002c5e        0     1                 $t.11
- 8002c5f  8002c5f        4     1                 __nop
- 8002c62  8002c62        6     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__basepri_w)
- 8002c62  8002c62        0     1                 $t.23
- 8002c63  8002c63        6     1                 __basepri_w
- 8002c68  8002c68        4     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memcpy)
- 8002c68  8002c68        0     1                 $t.4
- 8002c69  8002c69        4     1                 __aeabi_memcpy
- 8002c6c  8002c6c       86     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memcpy4)
- 8002c6c  8002c6c        0     1                 $t.5
- 8002c6d  8002c6d       86     1                 __aeabi_memcpy4
- 8002cf2  8002cf2        a     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memset)
- 8002cf2  8002cf2        0     1                 $t.9
- 8002cf3  8002cf3        a     1                 __aeabi_memset
- 8002cfc  8002cfc       8c     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memset4)
- 8002cfc  8002cfc        0     1                 $t.10
- 8002cfd  8002cfd       8c     1                 __aeabi_memset4
- 8002d88  8002d88        6     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text..Lanon.577df8728faad922ec5261a2950ea60b.1)
- 8002d88  8002d88        0     1                 $t.13
- 8002d89  8002d89        6     1                 __aeabi_memclr4
- 8002d89  8002d89        6     1                 __aeabi_memclr8
- 8002d8e  8002d8e       7e     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.text.memcpy)
- 8002d8e  8002d8e        0     1                 $t.0
- 8002d8f  8002d8f       7e     1                 memcpy
- 8002e0c  8002e0c       56     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.text.memset)
- 8002e0c  8002e0c        0     1                 $t.2
- 8002e0d  8002e0d       56     1                 memset
- 8002e62  8002e62       14     2         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m_rt-21c2366d0c3e237d.rlib(cortex-m-rt.o):(.HardFaultTrampoline)
- 8002e62  8002e62        0     1                 $t
- 8002e63  8002e63       14     1                 HardFaultTrampoline
- 8002e76  8002e76        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.HardFault.default)
- 8002e76  8002e76        0     1                 $t.37
- 8002e77  8002e77        2     1                 HardFault_
- 8002e78  8002e78        0     1         . = ALIGN ( 4 )
- 8002e78  8002e78        0     1         __etext = .
- 8002e78  8002e78      56c    16 .rodata
- 8002e78  8002e78       66     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_23)
- 8002ee0  8002ee0       10     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_22)
- 8002ee0  8002ee0       10     1                 .L__unnamed_22
- 8002ef0  8002ef0       56     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_24)
- 8002f48  8002f48       10     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_1)
- 8002f48  8002f48       10     1                 .L__unnamed_1
+ 8001847  8001847      468     1                 rtapp::app::rtic_ext::main::__rtic_init_resources::hf2b389727000acd1
+ 8001cae  8001cae        4     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3ops8function6FnOnce9call_once17h4e576c8f9f8ad893E)
+ 8001cae  8001cae        0     1                 $t.20
+ 8001caf  8001caf        4     1                 core::ops::function::FnOnce::call_once::h4e576c8f9f8ad893
+ 8001cb2  8001cb2       48     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking18panic_bounds_check17h405cc87dbcedf899E)
+ 8001cb2  8001cb2        0     1                 $t.21
+ 8001cb3  8001cb3       48     1                 core::panicking::panic_bounds_check::h405cc87dbcedf899
+ 8001cfa  8001cfa      282     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt3num3imp52_$LT$impl$u20$core..fmt..Display$u20$for$u20$u32$GT$3fmt17hce792a08db9a686eE)
+ 8001cfa  8001cfa        0     1                 $t.22
+ 8001cfb  8001cfb      282     1                 core::fmt::num::imp::_$LT$impl$u20$core..fmt..Display$u20$for$u20$u32$GT$::fmt::hce792a08db9a686e
+ 8001f7c  8001f7c       26     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking9panic_fmt17haa3fa7f8a12e8582E)
+ 8001f7c  8001f7c        0     1                 $t.23
+ 8001f7d  8001f7d       26     1                 core::panicking::panic_fmt::haa3fa7f8a12e8582
+ 8001fa2  8001fa2        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3ptr102drop_in_place$LT$$RF$core..iter..adapters..copied..Copied$LT$core..slice..iter..Iter$LT$u8$GT$$GT$$GT$17h7a94946140c2e94bE)
+ 8001fa2  8001fa2        0     1                 $t.24
+ 8001fa3  8001fa3        2     1                 core::ptr::drop_in_place$LT$$RF$core..iter..adapters..copied..Copied$LT$core..slice..iter..Iter$LT$u8$GT$$GT$$GT$::h7a94946140c2e94b
+ 8001fa4  8001fa4       12     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN36_$LT$T$u20$as$u20$core..any..Any$GT$7type_id17hab074aaa094b0467E)
+ 8001fa4  8001fa4        0     1                 $t.25
+ 8001fa5  8001fa5       12     1                 _$LT$T$u20$as$u20$core..any..Any$GT$::type_id::hab074aaa094b0467
+ 8001fb6  8001fb6       32     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt9Formatter12pad_integral12write_prefix17hffa86199801e556aE)
+ 8001fb6  8001fb6        0     1                 $t.26
+ 8001fb7  8001fb7       32     1                 core::fmt::Formatter::pad_integral::write_prefix::hffa86199801e556a
+ 8001fe8  8001fe8       4c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core5slice5index24slice_end_index_len_fail17h4743b677e768a08fE)
+ 8001fe8  8001fe8        0     1                 $t.27
+ 8001fe9  8001fe9       4c     1                 core::slice::index::slice_end_index_len_fail::h4743b677e768a08f
+ 8002034  8002034      668     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt9Formatter3pad17hb1396c7b5e6a5562E)
+ 8002034  8002034        0     1                 $t.28
+ 8002035  8002035      668     1                 core::fmt::Formatter::pad::hb1396c7b5e6a5562
+ 800269c  800269c       30     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core9panicking5panic17hed84b1200ea4b20fE)
+ 800269c  800269c        0     1                 $t.29
+ 800269d  800269d       30     1                 core::panicking::panic::hed84b1200ea4b20f
+ 80026cc  80026cc        c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h19332948be8e93f2E)
+ 80026cc  80026cc        0     1                 $t.30
+ 80026cd  80026cd        c     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h19332948be8e93f2
+ 80026d8  80026d8        a     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN42_$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$3fmt17he8107e1107f94252E)
+ 80026d8  80026d8        0     1                 $t.31
+ 80026d9  80026d9        a     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Debug$GT$::fmt::he8107e1107f94252
+ 80026e2  80026e2      188     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN4core3fmt5write17hac9753792f988019E)
+ 80026e2  80026e2        0     1                 $t.32
+ 80026e3  80026e3      188     1                 core::fmt::write::hac9753792f988019
+ 800286a  800286a       2c     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h03e8891721b4e5b7E)
+ 800286a  800286a        0     1                 $t.33
+ 800286b  800286b       2c     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h03e8891721b4e5b7
+ 8002896  8002896        e     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17h8899a5922729cb5aE)
+ 8002896  8002896        0     1                 $t.34
+ 8002897  8002897        e     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::h8899a5922729cb5a
+ 80028a4  80028a4       4a     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.unlikely._ZN4core6result13unwrap_failed17h7a4c04255328a40eE)
+ 80028a4  80028a4        0     1                 $t.35
+ 80028a5  80028a5       4a     1                 core::result::unwrap_failed::h7a4c04255328a40e
+ 80028ee  80028ee        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.DefaultHandler_)
+ 80028ee  80028ee        0     1                 $t.38
+ 80028ef  80028ef        2     1                 DefaultHandler_
+ 80028f0  80028f0        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.DefaultPreInit)
+ 80028f0  80028f0        0     1                 $t.39
+ 80028f1  80028f1        2     1                 DefaultPreInit
+ 80028f4  80028f4       8c     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN68_$LT$display_interface..DisplayError$u20$as$u20$core..fmt..Debug$GT$3fmt17h75580c757e34cb51E)
+ 80028f4  80028f4        0     1                 $t.42
+ 80028f5  80028f5       8c     1                 _$LT$display_interface..DisplayError$u20$as$u20$core..fmt..Debug$GT$::fmt::h75580c757e34cb51
+ 80028fa  80028fa        0     1                 $d.43
+ 8002902  8002902        0     1                 $t.44
+ 8002980  8002980       70     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text.rust_begin_unwind)
+ 8002980  8002980        0     1                 $t.45
+ 8002981  8002981       70     1                 rust_begin_unwind
+ 80029f0  80029f0       f6     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN44_$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$3fmt17hbcd20cb194511d23E)
+ 80029f0  80029f0        0     1                 $t.46
+ 80029f1  80029f1       f6     1                 _$LT$$RF$T$u20$as$u20$core..fmt..Display$GT$::fmt::hbcd20cb194511d23
+ 8002ae6  8002ae6       60     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17h60b693436fc2d9caE)
+ 8002ae6  8002ae6        0     1                 $t.47
+ 8002ae7  8002ae7       60     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_str::h60b693436fc2d9ca
+ 8002b46  8002b46       d4     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$10write_char17h9528f24e2ac8e40fE)
+ 8002b46  8002b46        0     1                 $t.48
+ 8002b47  8002b47       d4     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_char::h9528f24e2ac8e40f
+ 8002c1a  8002c1a       30     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.text._ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_fmt17hfecb094352dd1f99E)
+ 8002c1a  8002c1a        0     1                 $t.49
+ 8002c1b  8002c1b       30     1                 _$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$::write_fmt::hfecb094352dd1f99
+ 8002c4a  8002c4a        4     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m_semihosting-65d88b78e51e66fb.rlib(cortex-m-semihosting.o):(.text.__c_m_sh_syscall)
+ 8002c4a  8002c4a        0     1                 $t
+ 8002c4b  8002c4b        0     1                 __c_m_sh_syscall
+ 8002c4e  8002c4e        4     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__bkpt)
+ 8002c4e  8002c4e        0     1                 $t.0
+ 8002c4f  8002c4f        4     1                 __bkpt
+ 8002c52  8002c52        4     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__cpsid)
+ 8002c52  8002c52        0     1                 $t.3
+ 8002c53  8002c53        4     1                 __cpsid
+ 8002c56  8002c56        4     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__cpsie)
+ 8002c56  8002c56        0     1                 $t.4
+ 8002c57  8002c57        4     1                 __cpsie
+ 8002c5a  8002c5a        4     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__nop)
+ 8002c5a  8002c5a        0     1                 $t.11
+ 8002c5b  8002c5b        4     1                 __nop
+ 8002c5e  8002c5e        6     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.text.__basepri_w)
+ 8002c5e  8002c5e        0     1                 $t.23
+ 8002c5f  8002c5f        6     1                 __basepri_w
+ 8002c64  8002c64        4     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memcpy)
+ 8002c64  8002c64        0     1                 $t.4
+ 8002c65  8002c65        4     1                 __aeabi_memcpy
+ 8002c68  8002c68       86     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memcpy4)
+ 8002c68  8002c68        0     1                 $t.5
+ 8002c69  8002c69       86     1                 __aeabi_memcpy4
+ 8002cee  8002cee        a     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memset)
+ 8002cee  8002cee        0     1                 $t.9
+ 8002cef  8002cef        a     1                 __aeabi_memset
+ 8002cf8  8002cf8       8c     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text.__aeabi_memset4)
+ 8002cf8  8002cf8        0     1                 $t.10
+ 8002cf9  8002cf9       8c     1                 __aeabi_memset4
+ 8002d84  8002d84        6     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.text..Lanon.577df8728faad922ec5261a2950ea60b.1)
+ 8002d84  8002d84        0     1                 $t.13
+ 8002d85  8002d85        6     1                 __aeabi_memclr4
+ 8002d85  8002d85        6     1                 __aeabi_memclr8
+ 8002d8a  8002d8a       7e     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.text.memcpy)
+ 8002d8a  8002d8a        0     1                 $t.0
+ 8002d8b  8002d8b       7e     1                 memcpy
+ 8002e08  8002e08       56     2         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.text.memset)
+ 8002e08  8002e08        0     1                 $t.2
+ 8002e09  8002e09       56     1                 memset
+ 8002e5e  8002e5e       14     2         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m_rt-21c2366d0c3e237d.rlib(cortex-m-rt.o):(.HardFaultTrampoline)
+ 8002e5e  8002e5e        0     1                 $t
+ 8002e5f  8002e5f       14     1                 HardFaultTrampoline
+ 8002e72  8002e72        2     2         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.HardFault.default)
+ 8002e72  8002e72        0     1                 $t.37
+ 8002e73  8002e73        2     1                 HardFault_
+ 8002e74  8002e74        0     1         . = ALIGN ( 4 )
+ 8002e74  8002e74        0     1         __etext = .
+ 8002e74  8002e74      570    16 .rodata
+ 8002e74  8002e74       66     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_23)
+ 8002edc  8002edc       10     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_22)
+ 8002edc  8002edc       10     1                 .L__unnamed_22
+ 8002eec  8002eec       56     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_24)
+ 8002f44  8002f44       10     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_1)
+ 8002f44  8002f44       10     1                 .L__unnamed_1
  8002f60  8002f60       19    16         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata.str.0)
  8002f60  8002f60       19     1                 str.0
  8002f7c  8002f7c       10     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.rodata..L__unnamed_2)
@@ -308,87 +308,87 @@
 20000004 20000004       20     1                 rtapp::app::init::_MANAGER::hf23a03044edb44b0
 20000024 20000024        0     1         . = ALIGN ( 4 )
 20000024 20000024        0     1         __ebss = .
-20000024 20000024       18     4 .uninit
+20000024 20000024        c     4 .uninit
 20000024 20000024        0     1         . = ALIGN ( 4 )
-20000024 20000024       18     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.uninit.rtic0)
-20000024 20000024       18     1                 rtapp::app::__rtic_internal_shared_resource_shared_i2c_resources::h673dbdd4eebe5950
-2000003c 2000003c        0     1         . = ALIGN ( 4 )
-2000003c 2000003c        0     1 . = ALIGN ( 4 )
-2000003c 2000003c        0     1 __sheap = .
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 
-2000003c 2000003c        0     1 PROVIDE ( WWDG = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( PVD = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TAMPER = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( RTC = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( FLASH = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( RCC = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI0 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI4 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL4 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL5 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL6 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA1_CHANNEL7 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( ADC1_2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( USB_HP_CAN_TX = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( USB_LP_CAN_RX0 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( CAN_RX1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( CAN_SCE = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI9_5 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM1_BRK = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM1_UP = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM1_TRG_COM = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM1_CC = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM4 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( I2C1_EV = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( I2C1_ER = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( I2C2_EV = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( I2C2_ER = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( SPI1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( SPI2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( USART1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( USART2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( USART3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( EXTI15_10 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( RTCALARM = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM8_BRK = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM8_UP = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM8_TRG_COM = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM8_CC = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( ADC3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( FSMC = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( SDIO = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM5 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( SPI3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( UART4 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( UART5 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM6 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( TIM7 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA2_CHANNEL1 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA2_CHANNEL2 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA2_CHANNEL3 = DefaultHandler )
-2000003c 2000003c        0     1 PROVIDE ( DMA2_CHANNEL4_5 = DefaultHandler )
-2000003c 2000003c        0     1 
+20000024 20000024        c     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.uninit.rtic0)
+20000024 20000024        c     1                 rtapp::app::__rtic_internal_shared_resource_shared_i2c_resources::hc4e52b6b158da375
+20000030 20000030        0     1         . = ALIGN ( 4 )
+20000030 20000030        0     1 . = ALIGN ( 4 )
+20000030 20000030        0     1 __sheap = .
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 
+20000030 20000030        0     1 PROVIDE ( WWDG = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( PVD = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TAMPER = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( RTC = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( FLASH = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( RCC = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI0 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI4 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL4 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL5 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL6 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA1_CHANNEL7 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( ADC1_2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( USB_HP_CAN_TX = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( USB_LP_CAN_RX0 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( CAN_RX1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( CAN_SCE = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI9_5 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM1_BRK = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM1_UP = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM1_TRG_COM = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM1_CC = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM4 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( I2C1_EV = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( I2C1_ER = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( I2C2_EV = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( I2C2_ER = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( SPI1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( SPI2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( USART1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( USART2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( USART3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( EXTI15_10 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( RTCALARM = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM8_BRK = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM8_UP = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM8_TRG_COM = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM8_CC = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( ADC3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( FSMC = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( SDIO = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM5 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( SPI3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( UART4 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( UART5 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM6 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( TIM7 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA2_CHANNEL1 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA2_CHANNEL2 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA2_CHANNEL3 = DefaultHandler )
+20000030 20000030        0     1 PROVIDE ( DMA2_CHANNEL4_5 = DefaultHandler )
+20000030 20000030        0     1 
        0        0      666     1 .debug_abbrev
        0        0      17c     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_abbrev)
-     17c      17c      19b     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_abbrev)
+     17c      17c      19b     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_abbrev)
      317      317       62     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_abbrev)
      379      379       d7     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_abbrev)
      450      450       53     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_abbrev)
@@ -399,7 +399,7 @@
      5de      5de       88     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(aeabi_div0.o):(.debug_abbrev)
        0        0     2535     1 .debug_info
        0        0      fc3     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_info)
-     fc3      fc3      94b     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_info)
+     fc3      fc3      94b     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_info)
     190e     190e      16b     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_info)
     1a79     1a79      478     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_info)
     1ef1     1ef1       70     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_info)
@@ -410,7 +410,7 @@
     2440     2440       f5     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(aeabi_div0.o):(.debug_info)
        0        0      368     8 .debug_aranges
        0        0       98     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_aranges)
-      98       98       f0     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_aranges)
+      98       98       f0     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_aranges)
      188      188       88     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_aranges)
      210      210       88     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_aranges)
      298      298       20     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_aranges)
@@ -421,7 +421,7 @@
      340      340       28     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(aeabi_div0.o):(.debug_aranges)
        0        0     1648     1 .debug_ranges
        0        0     1100     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_ranges)
-    1100     1100       e0     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_ranges)
+    1100     1100       e0     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_ranges)
     11e0     11e0       c0     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_ranges)
     12a0     12a0      258     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_ranges)
     14f8     14f8       18     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.73.rcgu.o):(.debug_ranges)
@@ -431,7 +431,7 @@
        0        0     47f0     1         <internal>:(.debug_str)
        0        0     194a     1 .debug_pubnames
        0        0      ee2     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_pubnames)
-     ee2      ee2      25d     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_pubnames)
+     ee2      ee2      25d     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_pubnames)
     113f     113f      182     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_pubnames)
     12c1     12c1      45e     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_pubnames)
     171f     171f       4a     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_pubnames)
@@ -439,7 +439,7 @@
     180f     180f      13b     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.81.rcgu.o):(.debug_pubnames)
        0        0       b3     1 .debug_pubtypes
        0        0       12     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_pubtypes)
-      12       12       47     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_pubtypes)
+      12       12       47     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_pubtypes)
       59       59       12     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_pubtypes)
       6b       6b       12     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_pubtypes)
       7d       7d       12     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_pubtypes)
@@ -449,8 +449,8 @@
        0        0       32     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.ARM.attributes)
        0        0      ab0     4 .debug_frame
        0        0      49c     4         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_frame)
-     49c      49c       30     4         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m_rt-21c2366d0c3e237d.rlib(cortex-m-rt.o):(.debug_frame)
-     4cc      4cc      1c4     4         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_frame)
+     49c      49c       30     4         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m_rt-21c2366d0c3e237d.rlib(cortex-m-rt.o):(.debug_frame)
+     4cc      4cc      1c4     4         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_frame)
      690      690      114     4         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_frame)
      7a4      7a4      1ec     4         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_frame)
      990      990       30     4         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_frame)
@@ -459,7 +459,7 @@
      a60      a60       50     4         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(aeabi_div0.o):(.debug_frame)
        0        0     2cea     1 .debug_line
        0        0     1151     1         C:\Users\Andrii\Documents\RUST\ST\rtapp\target\thumbv7m-none-eabi\release\deps\rtapp-b330f2a6c5cdf6bf.rtapp.81043e01-cgu.0.rcgu.o:(.debug_line)
-    1151     1151      42b     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_line)
+    1151     1151      42b     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_line)
     157c     157c      2e4     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.67.rcgu.o):(.debug_line)
     1860     1860      a43     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.146.rcgu.o):(.debug_line)
     22a3     22a3       fb     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(compiler_builtins-5408ce3c3ac8ee44.compiler_builtins.ec11b6e5-cgu.69.rcgu.o):(.debug_line)
@@ -469,7 +469,7 @@
     2bd0     2bd0       7f     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(udivmodsi4.o):(.debug_line)
     2c4f     2c4f       9b     1         C:\Users\Andrii\.rustup\toolchains\stable-x86_64-pc-windows-msvc\lib\rustlib\thumbv7m-none-eabi\lib\libcompiler_builtins-5408ce3c3ac8ee44.rlib(aeabi_div0.o):(.debug_line)
        0        0      17e     1 .debug_loc
-       0        0      17e     1         C:\Users\Andrii\AppData\Local\Temp\rustcamjTMk\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_loc)
+       0        0      17e     1         C:\Users\Andrii\AppData\Local\Temp\rustchf1iQK\libcortex_m-614249dd01867492.rlib(bin/thumbv7m-none-eabi.o):(.debug_loc)
        0        0       6d     1 .comment
        0        0       6d     1         <internal>:(.comment)
        0        0      fd0     4 .symtab

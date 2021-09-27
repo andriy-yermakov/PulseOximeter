@@ -40,10 +40,19 @@ mod app {
             Pin<Alternate<OpenDrain>, CRH, 'B', 9>,
         ),
     >;
+
     pub struct SharedBusResources<T: 'static> {
         display: Ssd1306<I2CInterface<SharedBus<T>>, DisplaySize128x64>,
-        sensor: Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::None>,
+        //sensor: SensorType<T>,
     }
+
+    pub enum SensorType<T: 'static> {
+        NoneMode(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::None>),
+        HeartRateMode(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::HeartRate>),
+        OximeterMode(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::Oximeter>),
+        MultiLED(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::MultiLED>),
+    }
+
     #[shared]
     struct Shared {
         shared_i2c_resources: SharedBusResources<BusType>,
@@ -112,7 +121,7 @@ mod app {
         display.set_position(32, 32).write_char(':').unwrap();
 
         let sensor = Max3010x::new_max30102(manager.acquire());
-        //let sensor = sensor.into_heart_rate().unwrap();
+        // let mut sensor = sensor.into_heart_rate().unwrap();
 
         // sensor.set_sample_averaging(SampleAveraging::Sa4).unwrap();
         // sensor.set_pulse_amplitude(Led::All, 15).unwrap();
@@ -122,7 +131,10 @@ mod app {
 
         (
             Shared {
-                shared_i2c_resources: SharedBusResources { display, sensor },
+                shared_i2c_resources: SharedBusResources {
+                    display,
+                    //sensor: SensorType::HeartRateMode(sensor),
+                },
             },
             Local { led, timer },
             init::Monotonics(),
@@ -136,7 +148,7 @@ mod app {
         }
     }
 
-    #[task(binds = TIM2, local = [led, timer], shared = [shared_i2c_resources])]
+    #[task(binds = TIM2, local = [led, timer], shared = [shared_i2c_resources], priority=1)]
     fn blink(mut cx: blink::Context) {
         let _ = cx.local.led.toggle();
         let _ = cx.local.timer.wait();
