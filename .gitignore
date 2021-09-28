@@ -2,6 +2,7 @@
 .#*
 .gdb_history
 Cargo.lock
+rtapp.map
 target/
 
 # editor files
