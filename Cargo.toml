@@ -13,8 +13,6 @@ cortex-m-rtic = "0.6.0-alpha.5"
 cortex-m-semihosting = "0.3.3"
 panic-semihosting = "0.5.6"
 bare-metal = "1.0.0"
-# stm32f0 = "0.13"
-# stm32f1xx-hal = {git = "https://github.com/stm32-rs/stm32f1xx-hal", features = ["stm32f103", "rt", "medium"]}
 stm32f0xx-hal = {version = "0.17.1", features = ["stm32f030x6", "rt"]}
 display-interface = "0.4.1"
 display-interface-i2c = "0.4.0"
