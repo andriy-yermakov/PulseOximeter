@@ -2,7 +2,7 @@
 authors = ["Andrii Yermakov <andrew.yermakov@gmail.com>"]
 edition = "2018"
 readme = "README.md"
-name = "rtapp"
+name = "PulseOximeter"
 version = "0.1.0"
 
 [dependencies]
@@ -35,7 +35,7 @@ shared-bus-rtic = {version = "0.2.2", features = ["thumbv6"]}
 
 # this lets you use `cargo fix`!
 [[bin]]
-name = "rtapp"
+name = "PulseOximeter"
 test = false
 bench = false
 
