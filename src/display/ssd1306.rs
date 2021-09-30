@@ -1,5 +1,3 @@
-// use core::fmt::Display;
-
 use display_interface::{DataFormat::U8, DisplayError, WriteOnlyDataCommand};
 
 use super::brightness::Brightness;
@@ -132,11 +130,15 @@ where
         Command::AllOn(false).send(&mut self.interface)?;
         Command::Invert(false).send(&mut self.interface)?;
         Command::EnableScroll(false).send(&mut self.interface)?;
-        Command::DisplayOn(true).send(&mut self.interface)?;
+        //Command::DisplayOn(true).send(&mut self.interface)?;
 
         self.addr_mode = mode;
 
         Ok(())
+    }
+
+    pub fn display_on(&mut self, on: bool) -> Result<(), DisplayError> {
+        Command::DisplayOn(on).send(&mut self.interface)
     }
 
     /// Change the display brightness.

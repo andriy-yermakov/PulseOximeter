@@ -15,8 +15,8 @@ mod app {
     use display_interface_i2c::I2CInterface;
     use max3010x::{
         marker::{self, ic::Max30102, mode::Oximeter},
-        AdcRange, FifoAlmostFullLevelInterrupt, Led, LedPulseWidth, Max3010x, SampleAveraging,
-        SamplingRate,
+        AdcRange, FifoAlmostFullLevelInterrupt, InterruptStatus, Led, LedPulseWidth, Max3010x,
+        SampleAveraging, SamplingRate,
     };
     use shared_bus_rtic::{CommonBus, SharedBus};
     use stm32f0xx_hal::{
@@ -38,8 +38,7 @@ mod app {
 
     pub struct SharedBusResources<T: 'static> {
         display: Ssd1306<I2CInterface<SharedBus<T>>, DisplaySize128x64>,
-        // sensor: SensorType<T>,
-        sensor: Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::Oximeter>,
+        sensor: SensorType<T>,
     }
 
     pub enum SensorType<T: 'static> {
@@ -52,6 +51,7 @@ mod app {
     #[shared]
     struct Shared {
         shared_i2c_resources: SharedBusResources<BusType>,
+        is_finger_on_sensor: bool,
     }
 
     #[local]
@@ -91,10 +91,6 @@ mod app {
         // Set interrupt falling trigger for line 1
         exti.ftsr.modify(|_, w| w.tr1().set_bit());
 
-        // Enable EXTI IRQ, set prio 1 and clear any pending IRQs
-        unsafe { stm32f0xx_hal::pac::NVIC::unmask(stm32f0xx_hal::pac::interrupt::EXTI0_1) };
-        stm32f0xx_hal::pac::NVIC::unpend(stm32f0xx_hal::pac::interrupt::EXTI0_1);
-
         // Init I2C
         let gpioa = _device.GPIOA.split(&mut rcc);
 
@@ -131,31 +127,68 @@ mod app {
         let sensor = sensor.into_oximeter().unwrap();
         let sensor = init_oximeter(sensor);
 
+        let is_finger_on_sensor = false;
+
         (
             Shared {
                 shared_i2c_resources: SharedBusResources {
                     display,
-                    // sensor: SensorType::OximeterMode(sensor),
-                    sensor,
+                    sensor: SensorType::OximeterMode(sensor),
                 },
+                is_finger_on_sensor,
             },
             Local { exti },
             init::Monotonics(),
         )
     }
 
-    #[idle(shared = [shared_i2c_resources])]
-    fn idle(_: idle::Context) -> ! {
+    #[idle(shared = [shared_i2c_resources, is_finger_on_sensor])]
+    fn idle(mut cx: idle::Context) -> ! {
         loop {
-            cortex_m::asm::nop();
+            let is_finger_on_sensor = cx.shared.is_finger_on_sensor.lock(|f| *f);
+
+            if is_finger_on_sensor {
+                cx.shared.shared_i2c_resources.lock(|r| {
+                    r.display.display_on(true).unwrap();
+                });
+            } else {
+                cx.shared.shared_i2c_resources.lock(|r| {
+                    r.display.display_on(false).unwrap();
+                });
+            }
         }
     }
 
-    #[task(binds = EXTI0_1, shared = [shared_i2c_resources], local = [exti], priority=1)]
-    fn blink(mut cx: blink::Context) {
+    #[task(binds = EXTI0_1, shared = [shared_i2c_resources, is_finger_on_sensor], local = [exti], priority=1)]
+    fn handle_sensor(mut cx: handle_sensor::Context) {
+        let mut samples = [0; 2];
+
         cx.shared
             .shared_i2c_resources
-            .lock(|r| r.sensor.read_interrupt_status().unwrap());
+            .lock(|r| match &mut r.sensor {
+                SensorType::OximeterMode(sensor) => {
+                    if sensor.read_interrupt_status().unwrap().new_fifo_data_ready {
+                        sensor.read_fifo(&mut samples).unwrap();
+                    }
+                }
+                _ => (),
+            });
+
+        cx.shared
+            .is_finger_on_sensor
+            .lock(|is_finger_in_sensor| match *is_finger_in_sensor {
+                true => {
+                    // if samples[0] < 50000 {
+                    if samples[0] < 1600 {
+                        *is_finger_in_sensor = false
+                    }
+                }
+                false => {
+                    if samples[0] > 1600 {
+                        *is_finger_in_sensor = true
+                    }
+                }
+            });
 
         // Clear Interrupt Pending Bit
         cx.local.exti.pr.write(|w| w.pr1().set_bit());
@@ -177,15 +210,15 @@ mod app {
         sensor.disable_fifo_rollover().unwrap();
         sensor.set_sample_averaging(SampleAveraging::Sa1).unwrap();
         sensor
-            .set_fifo_almost_full_level_interrupt(FifoAlmostFullLevelInterrupt::L15)
+            .set_fifo_almost_full_level_interrupt(FifoAlmostFullLevelInterrupt::L7)
             .unwrap();
 
         sensor.set_adc_range(AdcRange::Fs4k).unwrap();
         sensor.set_sampling_rate(SamplingRate::Sps50).unwrap();
         sensor.set_pulse_width(LedPulseWidth::Pw411).unwrap();
         sensor.set_pulse_amplitude(Led::Led1, 1).unwrap(); // IR
-        sensor.set_pulse_amplitude(Led::Led2, 25).unwrap(); // RED
-        sensor.enable_fifo_almost_full_interrupt().unwrap();
+        sensor.set_pulse_amplitude(Led::Led2, 0).unwrap(); // RED
+        sensor.disable_fifo_almost_full_interrupt().unwrap();
         sensor.enable_new_fifo_data_ready_interrupt().unwrap();
         sensor
     }
