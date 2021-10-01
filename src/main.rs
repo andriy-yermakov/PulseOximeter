@@ -11,11 +11,11 @@ pub mod display;
 #[app(device = stm32f0xx_hal::pac, peripherals = true)]
 mod app {
     use cortex_m;
-    use cortex_m_semihosting::hprint;
+    // use cortex_m_semihosting::hprint;
     use display_interface_i2c::I2CInterface;
     use max3010x::{
         marker::{self, ic::Max30102, mode::Oximeter},
-        AdcRange, FifoAlmostFullLevelInterrupt, InterruptStatus, Led, LedPulseWidth, Max3010x,
+        AdcRange, FifoAlmostFullLevelInterrupt, Led, LedPulseWidth, Max3010x,
         SampleAveraging, SamplingRate,
     };
     use shared_bus_rtic::{CommonBus, SharedBus};
@@ -23,12 +23,13 @@ mod app {
         gpio::gpioa::{PA10, PA9},
         gpio::{Alternate, AF4},
         i2c::I2c,
-        pac::{Interrupt, Peripherals, EXTI, I2C1},
+        pac::{EXTI, I2C1},
         prelude::*,
         rcc::HSEBypassMode,
     };
+    use num_traits::float::FloatCore;
 
-    use crate::display;
+    // use crate::display;
     pub use crate::display::i2c_interface::I2CDisplayInterface;
     pub use crate::display::rotation::DisplayRotation;
     pub use crate::display::size::{DisplaySize, DisplaySize128x64};
@@ -47,13 +48,28 @@ mod app {
         OximeterMode(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::Oximeter>),
         MultiLED(Max3010x<SharedBus<T>, marker::ic::Max30102, marker::mode::MultiLED>),
     }
+    
+    pub enum State {
+        Begin,
+        Calibrate,
+        CalculateHr,
+        CollectNextPortion,
+    }
 
+    pub struct Buffers {
+        ir_buffer: [u32; 200],
+        red_buffer: [u32; 200],
+        buffer_head: usize,
+        buffer_tail: usize,
+        samples_collected: usize,
+    }
     #[shared]
     struct Shared {
         shared_i2c_resources: SharedBusResources<BusType>,
         is_finger_on_sensor: bool,
+        buffers: Buffers,
     }
-
+    
     #[local]
     struct Local {
         exti: EXTI,
@@ -129,6 +145,14 @@ mod app {
 
         let is_finger_on_sensor = false;
 
+        let buffers = Buffers {
+            ir_buffer: [0; 200],
+            red_buffer: [0; 200],
+            buffer_head: 0,
+            buffer_tail: 0,
+            samples_collected: 0,
+        };
+
         (
             Shared {
                 shared_i2c_resources: SharedBusResources {
@@ -136,30 +160,162 @@ mod app {
                     sensor: SensorType::OximeterMode(sensor),
                 },
                 is_finger_on_sensor,
+                buffers,
             },
             Local { exti },
             init::Monotonics(),
         )
     }
 
-    #[idle(shared = [shared_i2c_resources, is_finger_on_sensor])]
+    #[idle(shared = [shared_i2c_resources, is_finger_on_sensor, buffers])]
     fn idle(mut cx: idle::Context) -> ! {
+        let mut state = State::Begin;
+        let mut saved_heart_rate: f32 = 0.0;
+        let mut saved_spo2_value: f32 = 0.0;
+        let mut hr_is_valid: bool = true;
+        let mut spo2_is_valid: bool = true;
+
         loop {
             let is_finger_on_sensor = cx.shared.is_finger_on_sensor.lock(|f| *f);
+            match state {
+                State::Begin => {
+                    saved_heart_rate = 0.0;
+                    saved_spo2_value = 0.0;
+                    
+                    if is_finger_on_sensor {
+                        cx.shared.buffers.lock(|b|{
+                            b.buffer_tail = b.buffer_head;
+                            b.samples_collected = 0;
+                        });
+                        
+                        cx.shared.shared_i2c_resources.lock(|r| {
+                            match &mut r.sensor {
+                                SensorType::OximeterMode(sensor) => {
+                                    sensor.set_pulse_amplitude(Led::Led1, 0x24).unwrap(); // IR
+                                    sensor.set_pulse_amplitude(Led::Led2, 0x24).unwrap(); // RED
+                                }
+                                _ => ()
+                            }
+                        });
+                        state = State::Calibrate;
+                    }
+                }
+                State::Calibrate => {
+                    if is_finger_on_sensor {
+                        if cx.shared.buffers.lock(|b| b.samples_collected) > 150 {
+                            state = State::CalculateHr;
+                        }
+                    } else {
+                        cx.shared.shared_i2c_resources.lock(|r| {
+                            match &mut r.sensor {
+                                SensorType::OximeterMode(sensor) => {
+                                    sensor.set_pulse_amplitude(Led::Led1, 1).unwrap(); // IR
+                                    sensor.set_pulse_amplitude(Led::Led2, 0).unwrap(); // RED
+                                }
+                                _ => ()
+                            }
+                        });
+                        state = State::Begin;
+                    }
+                }
+                State::CalculateHr => {
+                    if is_finger_on_sensor {
+                        // ToDo: call spo2 and hert rate calculation function
+                        cx.shared.buffers.lock(|b|{
+                            b.buffer_tail = (b.buffer_tail + 50) % 200;
+                            b.samples_collected = 0;
+                        });
+                        state = State::CollectNextPortion;
+                    } else {
+                        cx.shared.shared_i2c_resources.lock(|r| {
+                            match &mut r.sensor {
+                                SensorType::OximeterMode(sensor) => {
+                                    sensor.set_pulse_amplitude(Led::Led1, 1).unwrap(); // IR
+                                    sensor.set_pulse_amplitude(Led::Led2, 0).unwrap(); // RED
+                                }
+                                _ => ()
+                            }
+                        });
+                        state = State::Begin;
+                    }
+                }
+                State::CollectNextPortion => {
+                    if is_finger_on_sensor {
+                        if cx.shared.buffers.lock(|b| b.samples_collected) > 50 {
+                            state = State::CalculateHr;
+                        }
+                    } else {
+                        cx.shared.shared_i2c_resources.lock(|r| {
+                            match &mut r.sensor {
+                                SensorType::OximeterMode(sensor) => {
+                                    sensor.set_pulse_amplitude(Led::Led1, 1).unwrap(); // IR
+                                    sensor.set_pulse_amplitude(Led::Led2, 0).unwrap(); // RED
+                                }
+                                _ => ()
+                            }
+                        });
+                        state = State::Begin;
+                    }
+                }
+            }
 
+            let mut heart_rate = 0.0;
+            let mut spo2_value = 0.0;
+
+            // Update display
             if is_finger_on_sensor {
-                cx.shared.shared_i2c_resources.lock(|r| {
-                    r.display.display_on(true).unwrap();
-                });
+                cx.shared.shared_i2c_resources.lock(|r| r.display.display_on(true).unwrap());
+
+                if hr_is_valid && (heart_rate != saved_heart_rate) && (heart_rate != 0.0) {
+                    saved_heart_rate = heart_rate;
+                    let heart_rate = heart_rate.floor() as u32;
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(48, 0).write_char(' ').unwrap());
+                    let d = (heart_rate % 1000) / 100;
+                    
+                    if 0 == d {
+                        cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(64, 0).write_char(' ').unwrap());
+                    } else {
+                        let c = char(d);                        
+                        cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(64, 0).write_char(c).unwrap());
+                    }
+                    
+                    let c = char((heart_rate % 100) / 10);
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(80, 0).write_char(c).unwrap());
+                    let c = char(heart_rate % 10);
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(96, 0).write_char(c).unwrap());
+                }
+
+                if spo2_is_valid && (spo2_value != saved_spo2_value) && (spo2_value != 0.0) {
+                    saved_spo2_value = spo2_value;
+
+                    let spo2_value = spo2_value.floor() as u32;
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(48, 32).write_char(' ').unwrap());
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(64, 32).write_char(' ').unwrap());
+                    let c = char((spo2_value % 100) / 10);
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(80, 32).write_char(c).unwrap());
+                    let c = char(spo2_value % 10);
+                    cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(96, 32).write_char(c).unwrap());
+                }
+
             } else {
-                cx.shared.shared_i2c_resources.lock(|r| {
-                    r.display.display_on(false).unwrap();
-                });
+                cx.shared.shared_i2c_resources.lock(|r| r.display.display_on(false).unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(48, 0).write_char(' ').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(64, 0).write_char('-').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(80, 0).write_char('-').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(96, 0).write_char(' ').unwrap());
+
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(48, 32).write_char(' ').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(64, 32).write_char('-').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(80, 32).write_char('-').unwrap());
+                cx.shared.shared_i2c_resources.lock(|r| r.display.set_position(96, 32).write_char(' ').unwrap());
             }
         }
     }
 
-    #[task(binds = EXTI0_1, shared = [shared_i2c_resources, is_finger_on_sensor], local = [exti], priority=1)]
+    #[task(binds = EXTI0_1, 
+        shared = [shared_i2c_resources, is_finger_on_sensor, buffers], 
+        local = [exti], 
+        priority=1)]
     fn handle_sensor(mut cx: handle_sensor::Context) {
         let mut samples = [0; 2];
 
@@ -174,18 +330,27 @@ mod app {
                 _ => (),
             });
 
+        // Copy the samplet to the buffers
+        cx.shared.buffers.lock(
+            |b| {
+                b.ir_buffer[b.buffer_head] = samples[0];
+                b.red_buffer[b.buffer_head] = samples[1];
+                b.buffer_head = (b.buffer_head + 1) % 200;
+                b.samples_collected += 1;
+            },
+        );
+
         cx.shared
             .is_finger_on_sensor
-            .lock(|is_finger_in_sensor| match *is_finger_in_sensor {
+            .lock(|is_finger_on_sensor| match *is_finger_on_sensor {
                 true => {
-                    // if samples[0] < 50000 {
-                    if samples[0] < 1600 {
-                        *is_finger_in_sensor = false
+                    if samples[0] < 50000 {
+                        *is_finger_on_sensor = false
                     }
                 }
                 false => {
                     if samples[0] > 1600 {
-                        *is_finger_in_sensor = true
+                        *is_finger_on_sensor = true
                     }
                 }
             });
@@ -221,5 +386,21 @@ mod app {
         sensor.disable_fifo_almost_full_interrupt().unwrap();
         sensor.enable_new_fifo_data_ready_interrupt().unwrap();
         sensor
+    }
+
+    fn char(b: u32) -> char {
+        match b {
+            0 => '0',
+            1 => '1',
+            2 => '2',
+            3 => '3',
+            4 => '4',
+            5 => '5',
+            6 => '6',
+            7 => '7',
+            8 => '8',
+            9 => '9',
+            _ => '*',
+        }
     }
 }
