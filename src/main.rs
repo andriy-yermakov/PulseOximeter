@@ -7,9 +7,11 @@ use panic_semihosting as _;
 use rtic::app;
 
 pub mod display;
+pub mod algorithm;
 
 #[app(device = stm32f0xx_hal::pac, peripherals = true)]
 mod app {
+    use core::u32;
     use cortex_m;
     // use cortex_m_semihosting::hprint;
     use display_interface_i2c::I2CInterface;
@@ -29,11 +31,12 @@ mod app {
     };
     use num_traits::float::FloatCore;
 
-    // use crate::display;
     pub use crate::display::i2c_interface::I2CDisplayInterface;
     pub use crate::display::rotation::DisplayRotation;
     pub use crate::display::size::{DisplaySize, DisplaySize128x64};
     pub use crate::display::ssd1306::Ssd1306;
+
+    pub use crate::algorithm;
 
     type BusType = I2c<I2C1, PA9<Alternate<AF4>>, PA10<Alternate<AF4>>>;
 
@@ -56,6 +59,8 @@ mod app {
         CollectNextPortion,
     }
 
+    // type Sample = (u32, u32);
+    
     pub struct Buffers {
         ir_buffer: [u32; 200],
         red_buffer: [u32; 200],
@@ -63,6 +68,33 @@ mod app {
         buffer_tail: usize,
         samples_collected: usize,
     }
+
+    // impl Buffers {
+    //     pub fn new() -> Self { 
+    //         Self { 
+    //             ir_buffer: [0; 200], 
+    //             red_buffer: [0; 200], 
+    //             buffer_head: 0, 
+    //             buffer_tail: 0, 
+    //             samples_collected: 0,
+    //         } 
+    //     }
+
+    //     pub fn reset(&mut self) -> () {
+    //         self.buffer_tail = self.buffer_head;
+    //         self.samples_collected = 0;
+    //         ()
+    //     }
+
+    //     pub fn push(&mut self, ir: u32, red: u32) -> () {
+    //         self.ir_buffer[self.buffer_head] = ir;
+    //         self.red_buffer[self.buffer_head] = red;
+    //         self.buffer_head = (self.buffer_head + 1) % 200;
+    //         self.samples_collected += 1;
+    //         ()
+    //     }
+    // }
+
     #[shared]
     struct Shared {
         shared_i2c_resources: SharedBusResources<BusType>,
@@ -73,9 +105,11 @@ mod app {
     #[local]
     struct Local {
         exti: EXTI,
+        // provider: &'static mut Buffers,
+        // consumer: &'static mut Buffers,
     }
 
-    #[init]
+    #[init]//(local = [buf: Buffers = Buffers::new()])]
     fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
         let _device: stm32f0xx_hal::pac::Peripherals = cx.device;
 
@@ -144,7 +178,7 @@ mod app {
         let sensor = init_oximeter(sensor);
 
         let is_finger_on_sensor = false;
-
+        
         let buffers = Buffers {
             ir_buffer: [0; 200],
             red_buffer: [0; 200],
@@ -152,7 +186,7 @@ mod app {
             buffer_tail: 0,
             samples_collected: 0,
         };
-
+        
         (
             Shared {
                 shared_i2c_resources: SharedBusResources {
@@ -183,6 +217,7 @@ mod app {
                     saved_spo2_value = 0.0;
                     
                     if is_finger_on_sensor {
+                        //cx.shared.buffers.reset();
                         cx.shared.buffers.lock(|b|{
                             b.buffer_tail = b.buffer_head;
                             b.samples_collected = 0;
@@ -203,6 +238,7 @@ mod app {
                 State::Calibrate => {
                     if is_finger_on_sensor {
                         if cx.shared.buffers.lock(|b| b.samples_collected) > 150 {
+                        // if cx.shared.buffers.samples_collected > 150 {
                             state = State::CalculateHr;
                         }
                     } else {
@@ -225,6 +261,8 @@ mod app {
                             b.buffer_tail = (b.buffer_tail + 50) % 200;
                             b.samples_collected = 0;
                         });
+                        // cx.shared.buffers.buffer_tail = (cx.shared.buffers.buffer_tail + 50) % 200;
+                        // cx.shared.samples_collected = 0;
                         state = State::CollectNextPortion;
                     } else {
                         cx.shared.shared_i2c_resources.lock(|r| {
@@ -314,7 +352,7 @@ mod app {
 
     #[task(binds = EXTI0_1, 
         shared = [shared_i2c_resources, is_finger_on_sensor, buffers], 
-        local = [exti], 
+        local = [ exti ], 
         priority=1)]
     fn handle_sensor(mut cx: handle_sensor::Context) {
         let mut samples = [0; 2];
@@ -331,6 +369,7 @@ mod app {
             });
 
         // Copy the samplet to the buffers
+        // cx.local.provider.push(samples[0], samples[1]);
         cx.shared.buffers.lock(
             |b| {
                 b.ir_buffer[b.buffer_head] = samples[0];
