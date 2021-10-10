@@ -79,27 +79,27 @@ where
     }
 
     /// Set the display rotation.
-    fn set_rotation(&mut self, _rotation: DisplayRotation) -> Result<(), DisplayError> {
-        // self.rotation = rotation;
+    fn set_rotation(&mut self, rotation: DisplayRotation) -> Result<(), DisplayError> {
+        self.rotation = rotation;
 
-        // match rotation {
-        //     DisplayRotation::Rotate0 => {
-        //         Command::SegmentRemap(true).send(&mut self.interface)?;
-        //         Command::ReverseComDir(true).send(&mut self.interface)?;
-        //     }
-        //     DisplayRotation::Rotate90 => {
-        //         Command::SegmentRemap(false).send(&mut self.interface)?;
-        //         Command::ReverseComDir(true).send(&mut self.interface)?;
-        //     }
-        //     DisplayRotation::Rotate180 => {
-        //         Command::SegmentRemap(false).send(&mut self.interface)?;
-        //         Command::ReverseComDir(false).send(&mut self.interface)?;
-        //     }
-        //     DisplayRotation::Rotate270 => {
-        //         Command::SegmentRemap(true).send(&mut self.interface)?;
-        //         Command::ReverseComDir(false).send(&mut self.interface)?;
-        //     }
-        // };
+        match rotation {
+            DisplayRotation::Rotate0 => {
+                Command::SegmentRemap(true).send(&mut self.interface)?;
+                Command::ReverseComDir(true).send(&mut self.interface)?;
+            }
+            DisplayRotation::Rotate90 => {
+                Command::SegmentRemap(false).send(&mut self.interface)?;
+                Command::ReverseComDir(true).send(&mut self.interface)?;
+            }
+            DisplayRotation::Rotate180 => {
+                Command::SegmentRemap(false).send(&mut self.interface)?;
+                Command::ReverseComDir(false).send(&mut self.interface)?;
+            }
+            DisplayRotation::Rotate270 => {
+                Command::SegmentRemap(true).send(&mut self.interface)?;
+                Command::ReverseComDir(false).send(&mut self.interface)?;
+            }
+        };
 
         Ok(())
     }
