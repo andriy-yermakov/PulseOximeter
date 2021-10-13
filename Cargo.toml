@@ -13,16 +13,20 @@ cortex-m-rtic = "0.6.0-alpha.5"
 cortex-m-semihosting = "0.3.3"
 panic-semihosting = "0.5.6"
 bare-metal = "1.0.0"
-stm32f0xx-hal = {version = "0.17.1", features = ["stm32f030x6", "rt"]}
+stm32f0xx-hal = { version = "0.17.1", features = ["stm32f030x6", "rt"] }
 display-interface = "0.4.1"
 display-interface-i2c = "0.4.0"
 max3010x = "0.1.0"
-shared-bus-rtic = {version = "0.2.2", features = ["thumbv6"]}
+shared-bus-rtic = { version = "0.2.2", features = ["thumbv6"] }
+compat-no-std = { version = "0.4.1-patch1", features = [] }
+# bbqueue = { version = "0.5.0", features = ["thumbv6"] }
 
 [dependencies.num-traits]
 version = "0.2"
 default-features = false
-features = ["libm"]    # <--- Uncomment if you wish to use `Float` and `Real` without `std`
+features = [
+    "libm",
+] # <--- Uncomment if you wish to use `Float` and `Real` without `std`
 
 # Uncomment for the panic example.
 # panic-itm = "0.4.1"
@@ -45,5 +49,5 @@ bench = false
 
 [profile.release]
 codegen-units = 1 # better optimizations
-debug = false # symbols are nice and they don't increase the size on Flash
-lto = true # better optimizations
+debug = false     # symbols are nice and they don't increase the size on Flash
+lto = true        # better optimizations

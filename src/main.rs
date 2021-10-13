@@ -8,11 +8,15 @@ use rtic::app;
 
 pub mod display;
 pub mod algorithm;
+pub mod bbqueue;
 
 #[app(device = stm32f0xx_hal::pac, peripherals = true)]
 mod app {
-    use core::u32;
-    use cortex_m;
+    use compat_no_std::{self as std, result};
+    use std::prelude::v1::*;
+    
+
+    use cortex_m::{self, register::control::read};
     // use cortex_m_semihosting::hprint;
     use display_interface_i2c::I2CInterface;
     use max3010x::{
@@ -35,6 +39,8 @@ mod app {
     pub use crate::display::rotation::DisplayRotation;
     pub use crate::display::size::{DisplaySize, DisplaySize128x64};
     pub use crate::display::ssd1306::Ssd1306;
+    
+    use crate::bbqueue::{BBBuffer, Producer, Consumer};
 
     pub use crate::algorithm;
 
@@ -59,57 +65,24 @@ mod app {
         CollectNextPortion,
     }
 
-    // type Sample = (u32, u32);
-    
-    pub struct Buffers {
-        ir_buffer: [u32; 200],
-        red_buffer: [u32; 200],
-        buffer_head: usize,
-        buffer_tail: usize,
-        samples_collected: usize,
-    }
-
-    // impl Buffers {
-    //     pub fn new() -> Self { 
-    //         Self { 
-    //             ir_buffer: [0; 200], 
-    //             red_buffer: [0; 200], 
-    //             buffer_head: 0, 
-    //             buffer_tail: 0, 
-    //             samples_collected: 0,
-    //         } 
-    //     }
-
-    //     pub fn reset(&mut self) -> () {
-    //         self.buffer_tail = self.buffer_head;
-    //         self.samples_collected = 0;
-    //         ()
-    //     }
-
-    //     pub fn push(&mut self, ir: u32, red: u32) -> () {
-    //         self.ir_buffer[self.buffer_head] = ir;
-    //         self.red_buffer[self.buffer_head] = red;
-    //         self.buffer_head = (self.buffer_head + 1) % 200;
-    //         self.samples_collected += 1;
-    //         ()
-    //     }
-    // }
-
     #[shared]
     struct Shared {
         shared_i2c_resources: SharedBusResources<BusType>,
         is_finger_on_sensor: bool,
-        buffers: Buffers,
+        samples_collected: usize,
     }
     
     #[local]
     struct Local {
         exti: EXTI,
-        // provider: &'static mut Buffers,
-        // consumer: &'static mut Buffers,
+        ir_prod: Producer<'static, 800>,   
+        ir_cons: Consumer<'static, 800>,
+        red_prod: Producer<'static, 800>,   
+        red_cons: Consumer<'static, 800>,
+
     }
 
-    #[init]//(local = [buf: Buffers = Buffers::new()])]
+    #[init(local = [ir_buffer: BBBuffer<800> = BBBuffer::new(), red_buffer: BBBuffer<800> = BBBuffer::new()])]
     fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
         let _device: stm32f0xx_hal::pac::Peripherals = cx.device;
 
@@ -177,37 +150,38 @@ mod app {
         let sensor = sensor.into_oximeter().unwrap();
         let sensor = init_oximeter(sensor);
 
-        let is_finger_on_sensor = false;
-        
-        let buffers = Buffers {
-            ir_buffer: [0; 200],
-            red_buffer: [0; 200],
-            buffer_head: 0,
-            buffer_tail: 0,
-            samples_collected: 0,
-        };
-        
+        let (ir_prod, ir_cons) = cx.local.ir_buffer.try_split().unwrap();
+        let (red_prod, red_cons) = cx.local.red_buffer.try_split().unwrap();
+
         (
             Shared {
                 shared_i2c_resources: SharedBusResources {
                     display,
                     sensor: SensorType::OximeterMode(sensor),
                 },
-                is_finger_on_sensor,
-                buffers,
+                is_finger_on_sensor: false,
+                samples_collected: 0,
             },
-            Local { exti },
+            Local {
+                exti, 
+                ir_prod,
+                ir_cons,
+                red_prod,
+                red_cons,
+            },
             init::Monotonics(),
         )
     }
 
-    #[idle(shared = [shared_i2c_resources, is_finger_on_sensor, buffers])]
+    #[idle(shared = [shared_i2c_resources, is_finger_on_sensor, samples_collected], local = [ir_cons, red_cons])]
     fn idle(mut cx: idle::Context) -> ! {
         let mut state = State::Begin;
         let mut saved_heart_rate: f32 = 0.0;
         let mut saved_spo2_value: f32 = 0.0;
         let mut hr_is_valid: bool = true;
         let mut spo2_is_valid: bool = true;
+
+
 
         loop {
             let is_finger_on_sensor = cx.shared.is_finger_on_sensor.lock(|f| *f);
@@ -217,12 +191,30 @@ mod app {
                     saved_spo2_value = 0.0;
                     
                     if is_finger_on_sensor {
-                        //cx.shared.buffers.reset();
-                        cx.shared.buffers.lock(|b|{
-                            b.buffer_tail = b.buffer_head;
-                            b.samples_collected = 0;
-                        });
+                        // Reset buffers;
+                        let result = cx.local.ir_cons.read();
+                        match result {
+                            Ok(rd) => {
+                                let len = rd.buf.len();
+                                rd.release(len);
+                            },
+                            _ => (),
+
+                        }
+
+                        let result = cx.local.red_cons.read();
+                        match result {
+                            Ok(rd) => {
+                                let len = rd.buf.len();
+                                rd.release(len);
+                            },
+                            _ => (),
+
+                        }
+
+                        cx.shared.samples_collected.lock(|sc| {*sc = 0;});
                         
+                        // Turn LCDs on
                         cx.shared.shared_i2c_resources.lock(|r| {
                             match &mut r.sensor {
                                 SensorType::OximeterMode(sensor) => {
@@ -233,15 +225,38 @@ mod app {
                             }
                         });
                         state = State::Calibrate;
+                    } else {
+                        // Reset buffers
+                        let result = cx.local.ir_cons.read();
+                        match result {
+                            Ok(rd) => {
+                                let len = rd.buf.len();
+                                rd.release(len);
+                            },
+                            _ => (),
+
+                        }
+
+                        let result = cx.local.red_cons.read();
+                        match result {
+                            Ok(rd) => {
+                                let len = rd.buf.len();
+                                rd.release(len);
+                            },
+                            _ => (),
+
+                        }
+
+                        cx.shared.samples_collected.lock(|sc| {*sc = 0;});
                     }
                 }
                 State::Calibrate => {
                     if is_finger_on_sensor {
-                        if cx.shared.buffers.lock(|b| b.samples_collected) > 150 {
-                        // if cx.shared.buffers.samples_collected > 150 {
+                        if cx.shared.samples_collected.lock(|sc| *sc) > 150 {
                             state = State::CalculateHr;
                         }
                     } else {
+                        // Turn LCDs off
                         cx.shared.shared_i2c_resources.lock(|r| {
                             match &mut r.sensor {
                                 SensorType::OximeterMode(sensor) => {
@@ -256,15 +271,15 @@ mod app {
                 }
                 State::CalculateHr => {
                     if is_finger_on_sensor {
-                        // ToDo: call spo2 and hert rate calculation function
-                        cx.shared.buffers.lock(|b|{
-                            b.buffer_tail = (b.buffer_tail + 50) % 200;
-                            b.samples_collected = 0;
-                        });
-                        // cx.shared.buffers.buffer_tail = (cx.shared.buffers.buffer_tail + 50) % 200;
-                        // cx.shared.samples_collected = 0;
+                        /*
+                        ToDo: call spo2 and hert rate calculation function
+                        read 50 samples for calculation                                                
+                        */
+                        cx.shared.samples_collected.lock(|sc| { *sc = 0; });
+                
                         state = State::CollectNextPortion;
                     } else {
+                        // Turn LCDs off
                         cx.shared.shared_i2c_resources.lock(|r| {
                             match &mut r.sensor {
                                 SensorType::OximeterMode(sensor) => {
@@ -279,7 +294,7 @@ mod app {
                 }
                 State::CollectNextPortion => {
                     if is_finger_on_sensor {
-                        if cx.shared.buffers.lock(|b| b.samples_collected) > 50 {
+                        if cx.shared.samples_collected.lock(|sc| *sc) > 50 {
                             state = State::CalculateHr;
                         }
                     } else {
@@ -351,12 +366,12 @@ mod app {
     }
 
     #[task(binds = EXTI0_1, 
-        shared = [shared_i2c_resources, is_finger_on_sensor, buffers], 
-        local = [ exti ], 
-        priority=1)]
+        shared = [shared_i2c_resources, is_finger_on_sensor, samples_collected], 
+        local = [ exti, ir_prod, red_prod ])]
     fn handle_sensor(mut cx: handle_sensor::Context) {
         let mut samples = [0; 2];
 
+        // Read a data from a sensor
         cx.shared
             .shared_i2c_resources
             .lock(|r| match &mut r.sensor {
@@ -368,17 +383,7 @@ mod app {
                 _ => (),
             });
 
-        // Copy the samplet to the buffers
-        // cx.local.provider.push(samples[0], samples[1]);
-        cx.shared.buffers.lock(
-            |b| {
-                b.ir_buffer[b.buffer_head] = samples[0];
-                b.red_buffer[b.buffer_head] = samples[1];
-                b.buffer_head = (b.buffer_head + 1) % 200;
-                b.samples_collected += 1;
-            },
-        );
-
+        // Check FingerOnSensor status
         cx.shared
             .is_finger_on_sensor
             .lock(|is_finger_on_sensor| match *is_finger_on_sensor {
@@ -396,6 +401,37 @@ mod app {
 
         // Clear Interrupt Pending Bit
         cx.local.exti.pr.write(|w| w.pr1().set_bit());
+
+
+        if cx.shared.is_finger_on_sensor.lock(|f| *f) == true {
+            // Store the data in the buffers
+            let result = cx.local.ir_prod.grant_exact(4);
+            match result {
+                Ok(mut wr) => {
+                    let bytes = samples[0].to_le_bytes();
+                    for i in 0..4 {
+                        wr[i] = bytes[i];
+                    }
+                    wr.commit(4);
+                },
+                _ => (),
+            }
+            
+            let result = cx.local.red_prod.grant_exact(4);
+            match result {
+                Ok(mut wr) => {
+                    let bytes = samples[1].to_le_bytes();
+                    for i in 0..4 {
+                        wr[i] = bytes[i];
+                    }
+                    wr.commit(4);
+                },
+                _ => (),
+            }
+
+            cx.shared.samples_collected.lock(|sc| { *sc += 1; });
+        };
+
     }
 
     fn init_oximeter(
