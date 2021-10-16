@@ -1,15 +1,19 @@
-use core::cmp;
+use compat_no_std::{self as std, ptr, result};
+use core::intrinsics::copy_nonoverlapping;
+use std::prelude::v1::*;
+
+use core::cmp::min;
+use core::convert::TryInto;
+use core::{cmp, mem};
+use cortex_m_semihosting::hprint;
 use num_traits::cast::NumCast;
 use num_traits::Float;
 
-fn heart_rate_and_oxygen_saturation<T>(read_data: &[(T, T)]) -> ()
-where
-    T: Float,
-{
-    let mut ir_mean = T::zero();
-    let mut red_mean = T::zero();
-
-    // Calculate DC mean and substract mean from ir and red
+pub fn heart_rate_and_oxygen_saturation(
+    ir_slices: (&[u8], &[u8]),
+    red_slices: (&[u8], &[u8]),
+) -> () {
+    let (mut ir_buffer, mut red_buffer) = populate_buffers(ir_slices, red_slices);
 }
 
 fn linear_regression_beta<T>(x: &[T], xmean: T, sum_x2: T) -> T
@@ -65,4 +69,54 @@ where
     set.iter()
         .fold(T::zero(), |acc: T, elem| acc + elem.0 * elem.1)
         / len
+}
+
+fn populate_buffers(
+    ir_slices: (&[u8], &[u8]),
+    red_slices: (&[u8], &[u8]),
+) -> ([u32; 150], [u32; 150]) {
+    let mut ir_buffer = [0u8; 600];
+    let mut red_buffer = [0u8; 600];
+
+    unsafe {
+        // Populate ir_buffer
+        let count_bytes_to_copy = min(ir_slices.0.len(), 600);
+
+        copy_nonoverlapping(
+            ir_slices.0.as_ptr(),
+            ir_buffer.as_mut_ptr(),
+            count_bytes_to_copy,
+        );
+
+        copy_nonoverlapping(
+            ir_slices.1.as_ptr(),
+            ir_buffer
+                .as_mut_ptr()
+                .offset(count_bytes_to_copy.try_into().unwrap()),
+            min(ir_slices.1.len(), 600 - count_bytes_to_copy),
+        );
+
+        // Populate red_buffer
+        let count_bytes_to_copy = min(red_slices.0.len(), 600);
+
+        copy_nonoverlapping(
+            red_slices.0.as_ptr(),
+            red_buffer.as_mut_ptr(),
+            count_bytes_to_copy,
+        );
+
+        copy_nonoverlapping(
+            red_slices.1.as_ptr(),
+            red_buffer
+                .as_mut_ptr()
+                .offset(count_bytes_to_copy.try_into().unwrap()),
+            min(red_slices.1.len(), 600 - count_bytes_to_copy),
+        );
+
+        // Convert buffers type and return
+        (
+            std::mem::transmute::<[u8; 600], [u32; 150]>(ir_buffer),
+            std::mem::transmute::<[u8; 600], [u32; 150]>(red_buffer),
+        )
+    }
 }

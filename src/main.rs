@@ -271,11 +271,24 @@ mod app {
                 }
                 State::CalculateHr => {
                     if is_finger_on_sensor {
-                        /*
-                        ToDo: call spo2 and hert rate calculation function
-                        read 50 samples for calculation                                                
-                        */
                         cx.shared.samples_collected.lock(|sc| { *sc = 0; });
+                        // to obtain the access to the slice of 150 measurments and pass the referens on it to calculation function
+                        let result = cx.local.ir_cons.split_read();
+                        match result {
+                            Ok(rd) => {
+                                let result = cx.local.red_cons.split_read();
+                                match result {
+                                    Ok(red) => {
+                                        algorithm::heart_rate_and_oxygen_saturation(rd.bufs(), red.bufs());
+                                        rd.release(200);
+                                        red.release(200);
+                                    },
+                                    _ => (),
+                                }
+                            },
+                            _ => (),
+                        }
+
                 
                         state = State::CollectNextPortion;
                     } else {
