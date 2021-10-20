@@ -7,6 +7,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "cwd": "${workspaceRoot}",
+            "executable": "./bin/executable.elf",
+            "name": "Debug Microcontroller",
+            "request": "launch",
+            "type": "cortex-debug",
+            "showDevDebugOutput": false,
+            "servertype": "openocd"
+        },
+        {
             "type": "cortex-debug",
             "request": "launch",
             "name": "Debug (QEMU)",
@@ -44,7 +53,11 @@
                 "swoFrequency": 2000000,
                 "source": "probe",
                 "decoders": [
-                    { "type": "console", "label": "ITM", "port": 0 }
+                    {
+                        "type": "console",
+                        "label": "ITM",
+                        "port": 0
+                    }
                 ]
             }
         }

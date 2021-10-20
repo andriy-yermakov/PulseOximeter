@@ -75,14 +75,14 @@ mod app {
     #[local]
     struct Local {
         exti: EXTI,
-        ir_prod: Producer<'static, 800>,   
-        ir_cons: Consumer<'static, 800>,
-        red_prod: Producer<'static, 800>,   
-        red_cons: Consumer<'static, 800>,
+        ir_prod: Producer<'static, 600>,   
+        ir_cons: Consumer<'static, 600>,
+        red_prod: Producer<'static, 600>,   
+        red_cons: Consumer<'static, 600>,
 
     }
 
-    #[init(local = [ir_buffer: BBBuffer<800> = BBBuffer::new(), red_buffer: BBBuffer<800> = BBBuffer::new()])]
+    #[init(local = [ir_buffer: BBBuffer<600> = BBBuffer::new(), red_buffer: BBBuffer<600> = BBBuffer::new()])]
     fn init(cx: init::Context) -> (Shared, Local, init::Monotonics) {
         let _device: stm32f0xx_hal::pac::Peripherals = cx.device;
 
@@ -280,8 +280,8 @@ mod app {
                                 match result {
                                     Ok(red) => {
                                         algorithm::heart_rate_and_oxygen_saturation(rd.bufs(), red.bufs());
-                                        rd.release(200);
-                                        red.release(200);
+                                        rd.release(150);
+                                        red.release(150);
                                     },
                                     _ => (),
                                 }
@@ -382,7 +382,7 @@ mod app {
         shared = [shared_i2c_resources, is_finger_on_sensor, samples_collected], 
         local = [ exti, ir_prod, red_prod ])]
     fn handle_sensor(mut cx: handle_sensor::Context) {
-        let mut samples = [0; 2];
+        let mut samples = [0_u32; 2];
 
         // Read a data from a sensor
         cx.shared
@@ -418,26 +418,26 @@ mod app {
 
         if cx.shared.is_finger_on_sensor.lock(|f| *f) == true {
             // Store the data in the buffers
-            let result = cx.local.ir_prod.grant_exact(4);
+            let result = cx.local.ir_prod.grant_exact(3);
             match result {
                 Ok(mut wr) => {
                     let bytes = samples[0].to_le_bytes();
-                    for i in 0..4 {
-                        wr[i] = bytes[i];
+                    for i in 1..4 { // don't store more significant byte
+                        wr[i-1] = bytes[i];
                     }
-                    wr.commit(4);
+                    wr.commit(3);
                 },
                 _ => (),
             }
             
-            let result = cx.local.red_prod.grant_exact(4);
+            let result = cx.local.red_prod.grant_exact(3);
             match result {
                 Ok(mut wr) => {
                     let bytes = samples[1].to_le_bytes();
-                    for i in 0..4 {
-                        wr[i] = bytes[i];
+                    for i in 1..4 {
+                        wr[i-1] = bytes[i];
                     }
-                    wr.commit(4);
+                    wr.commit(3);
                 },
                 _ => (),
             }
