@@ -19,7 +19,7 @@ display-interface-i2c = "0.4.0"
 max3010x = "0.1.0"
 shared-bus-rtic = { version = "0.2.2", features = ["thumbv6"] }
 compat-no-std = { version = "0.4.1-patch1", features = [] }
-# bbqueue = { version = "0.5.0", features = ["thumbv6"] }
+bbqueue = { version = "0.5.0", features = ["thumbv6"] }
 
 [dependencies.num-traits]
 version = "0.2"

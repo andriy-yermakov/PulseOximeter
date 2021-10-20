@@ -8,7 +8,6 @@ use rtic::app;
 
 pub mod display;
 pub mod algorithm;
-pub mod bbqueue;
 
 #[app(device = stm32f0xx_hal::pac, peripherals = true)]
 mod app {
@@ -34,14 +33,13 @@ mod app {
         rcc::HSEBypassMode,
     };
     use num_traits::float::FloatCore;
+    use bbqueue::{BBBuffer, Producer, Consumer};
 
     pub use crate::display::i2c_interface::I2CDisplayInterface;
     pub use crate::display::rotation::DisplayRotation;
     pub use crate::display::size::{DisplaySize, DisplaySize128x64};
     pub use crate::display::ssd1306::Ssd1306;
     
-    use crate::bbqueue::{BBBuffer, Producer, Consumer};
-
     pub use crate::algorithm;
 
     type BusType = I2c<I2C1, PA9<Alternate<AF4>>, PA10<Alternate<AF4>>>;
@@ -195,7 +193,7 @@ mod app {
                         let result = cx.local.ir_cons.read();
                         match result {
                             Ok(rd) => {
-                                let len = rd.buf.len();
+                                let len = rd.buf().len();
                                 rd.release(len);
                             },
                             _ => (),
@@ -205,7 +203,7 @@ mod app {
                         let result = cx.local.red_cons.read();
                         match result {
                             Ok(rd) => {
-                                let len = rd.buf.len();
+                                let len = rd.buf().len();
                                 rd.release(len);
                             },
                             _ => (),
@@ -230,7 +228,7 @@ mod app {
                         let result = cx.local.ir_cons.read();
                         match result {
                             Ok(rd) => {
-                                let len = rd.buf.len();
+                                let len = rd.buf().len();
                                 rd.release(len);
                             },
                             _ => (),
@@ -240,7 +238,7 @@ mod app {
                         let result = cx.local.red_cons.read();
                         match result {
                             Ok(rd) => {
-                                let len = rd.buf.len();
+                                let len = rd.buf().len();
                                 rd.release(len);
                             },
                             _ => (),
