@@ -1,4 +1,4 @@
-# `Pulse-Oximeter`
+# `Pulse-Oximeter` (the project is not completed so far)
 
 # License
 
